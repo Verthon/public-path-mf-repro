@@ -26,7 +26,7 @@ const createWebpackConfig = (mode: Configuration["mode"]): Configuration => {
 
 	return {
 		mode: mode,
-		entry: path.resolve(process.cwd(), "src/index.ts"),
+		entry: path.resolve(process.cwd(), "src/Input.tsx"),
 		module: {
 			rules: [
 				{
@@ -78,13 +78,10 @@ const createWebpackConfig = (mode: Configuration["mode"]): Configuration => {
 			mode === "production" && new BundleAnalyzerPlugin(bundleAnalyzerConfig),
 
 			new container.ModuleFederationPlugin({
-				name: "button",
-				filename: "button.js",
+				name: "input",
+				filename: "remoteEntry.js",
 				exposes: {
-					"./Button": "./src/Button.tsx",
-				},
-				remotes: {
-					"input": "input@http://localhost:8082/remoteEntry.js",
+					"./Input": "./src/Input.tsx",
 				},
 				shared: {
 					react: {
